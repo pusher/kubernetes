@@ -570,6 +570,7 @@ func TestValidateKubeletConfiguration(t *testing.T) {
 			ReadOnlyPort:                utilpointer.Int32Ptr(0),
 			RegistryBurst:               10,
 			RegistryPullQPS:             utilpointer.Int32Ptr(5),
+			CPUCFSQuotaPeriod:           metav1.Duration{Duration: 100 * time.Millisecond},
 		},
 	}
 	if allErrors := ValidateKubeletConfiguration(successCase, nil); len(allErrors) != 0 {
@@ -600,6 +601,7 @@ func TestValidateKubeletConfiguration(t *testing.T) {
 			ReadOnlyPort:                utilpointer.Int32Ptr(-10),
 			RegistryBurst:               -10,
 			RegistryPullQPS:             utilpointer.Int32Ptr(-10),
+			CPUCFSQuotaPeriod:           metav1.Duration{Duration: 0},
 		},
 	}
 	if allErrors := ValidateKubeletConfiguration(errorCase, nil); len(allErrors) == 0 {

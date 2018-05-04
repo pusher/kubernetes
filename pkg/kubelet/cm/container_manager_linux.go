@@ -300,6 +300,7 @@ func (cm *containerManagerImpl) NewPodContainerManager() PodContainerManager {
 			qosContainersInfo: cm.GetQOSContainersInfo(),
 			subsystems:        cm.subsystems,
 			cgroupManager:     cm.cgroupManager,
+			cpuCFSQuotaPeriod: uint64(cm.CPUCFSQuotaPeriod / time.Microsecond),
 		}
 	}
 	return &podContainerManagerNoop{

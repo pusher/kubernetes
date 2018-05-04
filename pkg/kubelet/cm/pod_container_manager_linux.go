@@ -45,6 +45,9 @@ type podContainerManagerImpl struct {
 	// cgroupManager is the cgroup Manager Object responsible for managing all
 	// pod cgroups.
 	cgroupManager CgroupManager
+	// cpuCFSQuotaPeriod is the cfs period value, cfs_period_us, setting per
+	// node for all containers in usec
+	cpuCFSQuotaPeriod uint64
 }
 
 // Make sure that podContainerManagerImpl implements the PodContainerManager interface
@@ -75,7 +78,7 @@ func (m *podContainerManagerImpl) EnsureExists(pod *v1.Pod) error {
 		// Create the pod container
 		containerConfig := &CgroupConfig{
 			Name:               podContainerName,
-			ResourceParameters: ResourceConfigForPod(pod),
+			ResourceParameters: ResourceConfigForPod(pod, m.cpuCFSQuotaPeriod),
 		}
 		if err := m.cgroupManager.Create(containerConfig); err != nil {
 			return fmt.Errorf("failed to create container for %v : %v", podContainerName, err)

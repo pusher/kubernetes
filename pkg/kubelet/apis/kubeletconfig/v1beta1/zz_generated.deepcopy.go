@@ -21,6 +21,7 @@ limitations under the License.
 package v1beta1
 
 import (
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -216,6 +217,15 @@ func (in *KubeletConfiguration) DeepCopyInto(out *KubeletConfiguration) {
 			*out = nil
 		} else {
 			*out = new(bool)
+			**out = **in
+		}
+	}
+	if in.CPUCFSQuotaPeriod != nil {
+		in, out := &in.CPUCFSQuotaPeriod, &out.CPUCFSQuotaPeriod
+		if *in == nil {
+			*out = nil
+		} else {
+			*out = new(v1.Duration)
 			**out = **in
 		}
 	}

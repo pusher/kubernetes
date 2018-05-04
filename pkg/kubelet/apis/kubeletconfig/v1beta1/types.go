@@ -302,6 +302,10 @@ type KubeletConfiguration struct {
 	// Default: true
 	// +optional
 	CPUCFSQuota *bool `json:"cpuCFSQuota,omitempty"`
+	// cpuCFSQuotaPeriod is the CPU CFS quota period value, cpu.cfs_period_us
+	// Default: "100ms"
+	// +optional
+	CPUCFSQuotaPeriod metav1.Duration `json:"cpuCFSQuotaPeriod,omitempty"`
 	// maxOpenFiles is Number of files that can be opened by Kubelet process.
 	// Default: 1000000
 	// +optional

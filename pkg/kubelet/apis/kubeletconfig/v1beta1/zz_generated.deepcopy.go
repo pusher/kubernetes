@@ -219,6 +219,7 @@ func (in *KubeletConfiguration) DeepCopyInto(out *KubeletConfiguration) {
 			**out = **in
 		}
 	}
+	out.CPUCFSQuotaPeriod = in.CPUCFSQuotaPeriod
 	if in.KubeAPIQPS != nil {
 		in, out := &in.KubeAPIQPS, &out.KubeAPIQPS
 		if *in == nil {

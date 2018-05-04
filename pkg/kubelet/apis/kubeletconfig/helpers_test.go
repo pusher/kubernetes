@@ -147,6 +147,7 @@ var (
 		"Authorization.Webhook.CacheUnauthorizedTTL.Duration",
 		"CAdvisorPort",
 		"CPUCFSQuota",
+		"CPUCFSQuotaPeriod.Duration",
 		"CPUManagerPolicy",
 		"CPUManagerReconcilePeriod.Duration",
 		"CgroupDriver",

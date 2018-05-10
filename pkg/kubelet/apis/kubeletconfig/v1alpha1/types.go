@@ -203,6 +203,10 @@ type KubeletConfiguration struct {
 	// cpuCFSQuota is Enable CPU CFS quota enforcement for containers that
 	// specify CPU limits
 	CPUCFSQuota *bool `json:"cpuCFSQuota"`
+	// cpuCFSQuotaPeriod is the CPU CFS quota period value, cpu.cfs_period_us
+	// Default: "100ms"
+	// +optional
+	CPUCFSQuotaPeriod metav1.Duration `json:"cpuCFSQuotaPeriod,omitempty"`
 	// maxOpenFiles is Number of files that can be opened by Kubelet process.
 	MaxOpenFiles int64 `json:"maxOpenFiles"`
 	// contentType is contentType of requests sent to apiserver.

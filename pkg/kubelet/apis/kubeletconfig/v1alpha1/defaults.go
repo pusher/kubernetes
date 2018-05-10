@@ -89,6 +89,9 @@ func SetDefaults_KubeletConfiguration(obj *KubeletConfiguration) {
 	if obj.CPUCFSQuota == nil {
 		obj.CPUCFSQuota = boolVar(true)
 	}
+	if obj.CPUCFSQuotaPeriod == zeroDuration {
+		obj.CPUCFSQuotaPeriod = metav1.Duration{Duration: 100 * time.Millisecond}
+	}
 	if obj.EventBurst == 0 {
 		obj.EventBurst = 10
 	}

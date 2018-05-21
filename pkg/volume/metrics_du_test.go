@@ -37,7 +37,7 @@ func getExpectedBlockSize(path string) int64 {
 		return 0
 	}
 
-	return int64(statfs.Bsize)
+	return int64(statfs.Frsize)
 }
 
 // TestMetricsDuGetCapacity tests that MetricsDu can read disk usage

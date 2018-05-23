@@ -44,26 +44,24 @@ func milliCPUToShares(milliCPU int64) int64 {
 }
 
 // milliCPUToQuota converts milliCPU to CFS quota and period values
-func milliCPUToQuota(milliCPU int64) (quota int64, period int64) {
+func milliCPUToQuota(milliCPU int64, period int64) (quota int64) {
 	// CFS quota is measured in two values:
-	//  - cfs_period_us=100ms (the amount of time to measure usage across)
+	//  - cfs_period_us=100ms (the amount of time to measure usage across given by period)
 	//  - cfs_quota=20ms (the amount of cpu time allowed to be used across a period)
 	// so in the above example, you are limited to 20% of a single CPU
 	// for multi-cpu environments, you just scale equivalent amounts
+	// see https://www.kernel.org/doc/Documentation/scheduler/sched-bwc.txt for details
+
 	if milliCPU == 0 {
 		return
 	}
 
-	// we set the period to 100ms by default
-	period = quotaPeriod
-
 	// we then convert your milliCPU to a value normalized over a period
-	quota = (milliCPU * quotaPeriod) / milliCPUToCPU
+	quota = (milliCPU * period) / MilliCPUToCPU
 
 	// quota needs to be a minimum of 1ms.
 	if quota < minQuotaPeriod {
 		quota = minQuotaPeriod
 	}
-
 	return
 }

@@ -151,6 +151,9 @@ func SetDefaults_KubeletConfiguration(obj *KubeletConfiguration) {
 	if obj.CPUCFSQuota == nil {
 		obj.CPUCFSQuota = utilpointer.BoolPtr(true)
 	}
+	if obj.CPUCFSQuotaPeriod == zeroDuration {
+		obj.CPUCFSQuotaPeriod = metav1.Duration{Duration: 100 * time.Millisecond}
+	}
 	if obj.MaxOpenFiles == 0 {
 		obj.MaxOpenFiles = 1000000
 	}

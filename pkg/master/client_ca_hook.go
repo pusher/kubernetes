@@ -19,6 +19,7 @@ package master
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"time"
 
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
@@ -137,7 +138,25 @@ func writeConfigMap(client coreclient.ConfigMapsGetter, name string, data map[st
 		return err
 	}
 
-	existing.Data = data
-	_, err = client.ConfigMaps(metav1.NamespaceSystem).Update(existing)
+	// Reset JSON marshalling for empty slices
+	requestHeaderSliceKeys := []string{
+		"requestheader-username-headers",
+		"requestheader-group-headers",
+		"requestheader-extra-headers-prefix",
+		"requestheader-allowed-names",
+	}
+
+	for _, key := range requestHeaderSliceKeys {
+		if val, ok := existing.Data[key]; ok {
+			if val == "null" {
+				existing.Data[key] = "[]"
+			}
+		}
+	}
+
+	if !reflect.DeepEqual(existing.Data, data) {
+		existing.Data = data
+		_, err = client.ConfigMaps(metav1.NamespaceSystem).Update(existing)
+	}
 	return err
 }

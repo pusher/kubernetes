@@ -138,6 +138,7 @@ func writeConfigMap(client coreclient.ConfigMapsGetter, name string, data map[st
 		return err
 	}
 
+	fmt.Printf("existing.Data: %+v", existing.Data)
 
 	if !reflect.DeepEqual(existing.Data, data) {
 		existing.Data = data

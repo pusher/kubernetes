@@ -199,11 +199,11 @@ func TestWriteClientCAs(t *testing.T) {
 				&api.ConfigMap{
 					ObjectMeta: metav1.ObjectMeta{Namespace: metav1.NamespaceSystem, Name: "extension-apiserver-authentication"},
 					Data: map[string]string{
-						"requestheader-username-headers":     `null`,
-						"requestheader-group-headers":        `null`,
-						"requestheader-extra-headers-prefix": `null`,
+						"requestheader-username-headers":     `[]`,
+						"requestheader-group-headers":        `[]`,
+						"requestheader-extra-headers-prefix": `[]`,
 						"requestheader-client-ca-file":       "bar",
-						"requestheader-allowed-names":        `null`,
+						"requestheader-allowed-names":        `[]`,
 					},
 				},
 			},

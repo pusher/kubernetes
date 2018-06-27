@@ -138,7 +138,6 @@ func writeConfigMap(client coreclient.ConfigMapsGetter, name string, data map[st
 		return err
 	}
 
-
 	if !reflect.DeepEqual(existing.Data, data) {
 		existing.Data = data
 		_, err = client.ConfigMaps(metav1.NamespaceSystem).Update(existing)
